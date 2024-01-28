@@ -1,20 +1,9 @@
 import Navbar from "../../components/navbar/navbar.jsx";
 import "./historico.css";
+import {pedidos} from "../../dados.js";
 
 
 function Historico(){
-
-    const pedidos = [
-        {id_pedido: 1, dt: "28/01/2024", total: 100},
-        {id_pedido: 2, dt: "28/01/2024", total: 125},
-        {id_pedido: 3, dt: "28/01/2024", total: 10},
-        {id_pedido: 4, dt: "28/01/2024", total: 57},
-        {id_pedido: 5, dt: "28/01/2024", total: 100},
-        {id_pedido: 6, dt: "28/01/2024", total: 125},
-        {id_pedido: 7, dt: "28/01/2024", total: 10},
-        {id_pedido: 8, dt: "28/01/2024", total: 57},
-    ];
-
     return <>
         <Navbar showMenu={true}/>
 
@@ -25,28 +14,21 @@ function Historico(){
 
             <div className="box-pedido">
                 <table className="table">
-                    <tr>
-                        <td><strong>Pedido: 1</strong></td>
-                        <td className="text-light">28/01/2024</td>
-                        <td className="text-red">R$ 100,00</td>
+                 {
+                    //MAP é um loot aplicado dentro de uma array no JS formado em dados.js
+                    //key é da sintaxe JSX, obrigatória
+                    pedidos.map(function(ped){
+                        return  <tr key={ped.id_pedido}>
+                        <td><strong>Pedido: {ped.id_pedido}</strong></td>
+                        <td className="text-light">{ped.dt}</td>
+                        <td className="text-red">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ped.total)}
+                        </td>
                     </tr>
-                    <tr>
-                        <td><strong>Pedido: 2</strong></td>
-                        <td className="text-light">28/01/2024</td>
-                        <td className="text-red">R$ 125,00</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pedido: 3</strong></td>
-                        <td className="text-light">28/01/2024</td>
-                        <td className="text-red">R$ 10,00</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pedido: 4</strong></td>
-                        <td className="text-light">28/01/2024</td>
-                        <td className="text-red">R$ 57,00</td>
-                    </tr>
+                    })
+                    //o total do pedido, com formatação para a moeda local
+                 }
                 </table>
-
+                 
             </div>
         </div>
     </>

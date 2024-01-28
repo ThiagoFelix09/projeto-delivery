@@ -1,5 +1,7 @@
 import Navbar from "../../components/navbar/navbar";
 import ProdutoVitrine from "../../components/produto-vitrine/produto-vitrine.jsx";
+import {produtos} from "../../dados.js";
+
 function Home(){
     return <>
     <Navbar showMenu={true}/>
@@ -13,10 +15,17 @@ function Home(){
     </div>
 
     <div className="text-center">
-        <ProdutoVitrine />
-        <ProdutoVitrine />
-        <ProdutoVitrine />
-        <ProdutoVitrine />
+        {
+            produtos.map( function(prod){
+                return <ProdutoVitrine key={prod.id}
+                                       id={prod.id}
+                                       nome={prod.nome}
+                                       descricao={prod.descricao}
+                                       preco={prod.preco}
+                                       foto={prod.foto} />
+            })
+             
+        }
     </div>
     </>
    

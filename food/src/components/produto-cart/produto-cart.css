@@ -27,6 +27,7 @@
 }
 
 .footer-produto-btn {
+    width: calc(100% - 100px);
     border: 1px solid #cacaca;
     padding: 10px 15px;
     border-radius: 0px;
@@ -43,5 +44,7 @@
     color: #e84f3d;
     font-size: 1rem;
     font-weight: bold;
-    line-height: 1rem;
+    line-height: 0.8rem;
+    display: inline-block;
+    width: 90px;
 }
