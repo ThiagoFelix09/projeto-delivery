@@ -12,7 +12,9 @@ function Navbar(props){
         //document.getElementById("sidebar").style.width = "420px";
     }
     return <div className="navbar">
+        <Link to="/">
         <img src={logo} className="logotipo" alt="Logotipo" />
+        </Link>
 
         {
             props.showMenu &&

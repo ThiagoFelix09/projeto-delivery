@@ -1,8 +1,13 @@
 import Navbar from "../../components/navbar/navbar.jsx";
 import "./checkout.css";
+import { CartContext } from "../../contexts/cart-contexts.jsx";
+import { useContext } from "react";
 
 
 function Checkout(){
+
+    const {totalCart} = useContext(CartContext);
+
     return <>
     <Navbar />
 
@@ -99,7 +104,7 @@ function Checkout(){
 
                 <div className="checkout-valores">
                     <span>Total</span>
-                    <span><strong>R$ 50,00</strong></span>
+                    <span><strong>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalCart)}</strong></span>
                 </div>
 
                 <div className="checkout-button">
