@@ -2,7 +2,7 @@ import Navbar from "../../components/navbar/navbar";
 import ProdutoVitrine from "../../components/produto-vitrine/produto-vitrine.jsx";
 function Home(){
     return <>
-    <Navbar />
+    <Navbar showMenu={true}/>
 
     <div className ="container">
         <div className ="titulo text-center">
