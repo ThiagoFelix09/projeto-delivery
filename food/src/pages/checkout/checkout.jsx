@@ -1,12 +1,70 @@
 import Navbar from "../../components/navbar/navbar.jsx";
 import "./checkout.css";
 import { CartContext } from "../../contexts/cart-contexts.jsx";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import api from "../../services/api.js";
+import { useNavigate } from "react-router-dom";
+
 
 
 function Checkout(){
 
-    const {totalCart} = useContext(CartContext);
+    const {totalCart, cartItems, setCartItems, setTotalCart} = useContext(CartContext);
+
+    const navigate = useNavigate();
+
+
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [fone, setFone] = useState("");
+
+    const [cep, setCep] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [bairro, setBairro] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [uf, setUf] = useState("");
+
+    function FinalizarPedido(){
+        
+        //Montar itens para enviar API
+        let produtos = [];
+
+        for (var prod of cartItems){
+            produtos.push({
+                id_produto: prod.id,
+                qtd: prod.qtd,
+                vl_unitario: prod.vl_preco,
+                vl_total: prod.preco * prod.qtd
+            });
+        }
+
+        const params = {
+            id_usuario: 1,
+            nome,
+            email,
+            fone,
+            endereco,
+            bairro,
+            cidade,
+            uf,
+            cep,
+            total: totalCart,
+            itens: cartItems
+
+        }
+
+        api.post("/pedidos", params)
+        .then((resp) => {
+            setCartItems ([]);
+            setTotalCart(0);
+            navigate("/historico");
+        })
+        .catch((err) => {
+            alert('Erro ao enviar pedido.')
+        })
+    }
+
+
 
     return <>
     <Navbar />
@@ -22,17 +80,17 @@ function Checkout(){
 
                 <div className="input-group">
                     <p>Nome Completo</p>
-                    <input type="text" id="nome" />
+                    <input type="text" id="nome" onChange={(e) =>  setNome(e.target.value)} />
                 </div>
 
                 <div className="input-group">
                     <p>E-mail</p>
-                    <input type="email" id="email" />
+                    <input type="email" id="email" onChange={(e) =>  setEmail(e.target.value)} />
                 </div>
 
                 <div className="input-group">
                     <p>Telefone de Contato</p>
-                    <input type="text" id="fone" />
+                    <input type="text" id="fone" onChange={(e) =>  setFone(e.target.value)} />
                 </div>
 
             </div>
@@ -44,27 +102,27 @@ function Checkout(){
 
                 <div className="input-group">
                     <p>CEP</p>
-                    <input type="text" id="cep" />
+                    <input type="text" id="cep" onChange={(e) =>  setCep(e.target.value)} />
                 </div>
 
                 <div className="input-group">
                     <p>Endereço</p>
-                    <input type="text" id="endereco" />
+                    <input type="text" id="endereco" onChange={(e) =>  setEndereco(e.target.value)} />
                 </div>
 
                 <div className="input-group">
                     <p>Bairro</p>
-                    <input type="text" id="bairro" />
+                    <input type="text" id="bairro" onChange={(e) =>  setBairro(e.target.value)} />
                 </div>
 
                 <div className="input-group">
                     <p>Cidade</p>
-                    <input type="text" id="cidade" />
+                    <input type="text" id="cidade" onChange={(e) =>  setCidade(e.target.value)} />
                 </div>
 
                 <div className="input-group">
                     <p>UF</p>
-                    <select id="UF">
+                    <select id="UF" onChange={(e) =>  setUf(e.target.value)}>
                         <option value="AC">AC</option>
                         <option value="AL">AL</option>
                         <option value="AP">AP</option>
@@ -108,7 +166,7 @@ function Checkout(){
                 </div>
 
                 <div className="checkout-button">
-                    <button className="btn btn-checkout">Finalizar Pedido</button>
+                    <button onClick={FinalizarPedido} className="btn btn-checkout">Finalizar Pedido</button>
 
                 </div>
 

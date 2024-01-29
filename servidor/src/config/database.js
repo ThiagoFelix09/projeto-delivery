@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 
-const sqlite3 = sqlite3.verbose();
+const SQLite3 = sqlite3.verbose();
 
 function query(command, params, method = 'all'){
     return new Promise( function(resolve, reject){

@@ -1,8 +1,20 @@
+import { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/navbar";
 import ProdutoVitrine from "../../components/produto-vitrine/produto-vitrine.jsx";
-import {produtos} from "../../dados.js";
+import api from "../../services/api.js";
 
 function Home(){
+
+    const {produtos, setProdutos} = useState([]);
+
+    useEffect(() => {
+        api.get("/produtos")
+        .then((resp) => {
+            setProdutos(resp.data);
+        })
+        .catch()
+    }, []);
+
     return <>
     <Navbar showMenu={true}/>
 

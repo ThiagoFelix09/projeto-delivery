@@ -1,7 +1,7 @@
-import {Router} from 'express';
+import {router} from 'express';
 import {db} from '../config/database.js'
 
-const routeProduto = Router();
+const routeProduto = router();
 
 routeProduto.get("/produtos", function(req, res){
     db.all('select * from produto', [], function(err, rows){

@@ -4,6 +4,7 @@ import ProdutoCart from "../produto-cart/produto-cart";
 import "./cart.css";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/cart-contexts.jsx";
+import back from "../../assets/back.png";
 //import { checkout } from "../../pages/checkout/checkout.jsx";
 //import CartList from "./CartList";
 
@@ -33,13 +34,14 @@ function Cart(){
         <Dock position="right"
               isVisible={show}
               fluid={false}
-              size={420}
+              size={360}
               onVisibleChange={function(visible) {
                   setShow(visible);
               }}
               >
 
             <div className="text-center">
+                <img onClick={(e) => setShow(false)} src={back} className="cart-btn-close"/>
                 <h1>Meu Pedido</h1>
             </div>
 
